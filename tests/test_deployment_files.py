@@ -105,8 +105,7 @@ class TestConfigFile(TestCase):
 
 class TestEditableDockerCompose(TestCase):
     def testEmpty(self):
-        dc_version = "3.8"
-        edc = EditableDockerCompose(dc_version)
+        edc = EditableDockerCompose()
 
         with TemporaryDirectory() as tmpdir:
             edc.write_to(tmpdir)
@@ -115,11 +114,10 @@ class TestEditableDockerCompose(TestCase):
             ) as file:
                 edc_content = yaml.load(file, Loader=yaml.Loader)
 
-        self.assertDictEqual({"version": dc_version, "services": {}}, edc_content)
+        self.assertDictEqual({"services": {}}, edc_content)
 
     def testWithEnvFileInOneService(self):
-        dc_version = "3.8"
-        edc = EditableDockerCompose(dc_version)
+        edc = EditableDockerCompose()
         service = "myservice"
         env_file_path = "/my/path"
         edc.set_service_env_file(service, env_file_path)
@@ -132,13 +130,12 @@ class TestEditableDockerCompose(TestCase):
                 edc_content = yaml.load(file, Loader=yaml.Loader)
 
         self.assertDictEqual(
-            {"version": dc_version, "services": {service: {"env_file": env_file_path}}},
+            {"services": {service: {"env_file": env_file_path}}},
             edc_content,
         )
 
     def testWithVolumes(self):
-        dc_version = "3.8"
-        edc = EditableDockerCompose(dc_version)
+        edc = EditableDockerCompose()
         service = "myservice"
         volumes = ["a:b", "c:d"]
         for volume in volumes:
@@ -152,6 +149,6 @@ class TestEditableDockerCompose(TestCase):
                 edc_content = yaml.load(file, Loader=yaml.Loader)
 
         self.assertDictEqual(
-            {"version": dc_version, "services": {service: {"volumes": volumes}}},
+            {"services": {service: {"volumes": volumes}}},
             edc_content,
         )

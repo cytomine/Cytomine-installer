@@ -197,9 +197,6 @@ class DockerComposeFile:
     def services(self):
         return list(self._content.get("services", {}).keys())
 
-    @property
-    def version(self):
-        return self._content.get("version")
 
 
 class EditableDockerCompose:
@@ -209,11 +206,10 @@ class EditableDockerCompose:
     - service 'volumes'
     """
 
-    def __init__(self, version="3.9") -> None:
+    def __init__(self) -> None:
         self._compose = dict()
         self._compose["services"] = {}
-        if version is not None:
-            self._compose["version"] = version
+
 
     def _get_service_dict(self, service):
         if service not in self._compose["services"]:
