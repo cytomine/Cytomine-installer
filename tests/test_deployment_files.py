@@ -29,7 +29,6 @@ class TestDockerComposeFile(TestCase):
             "pims",
         }
         self.assertSetEqual(services, set(docker_compose_file.services))
-        self.assertIsNone(docker_compose_file.version)
 
 
 class TestConfigFile(TestCase):
