@@ -210,7 +210,6 @@ class EditableDockerCompose:
         self._compose = dict()
         self._compose["services"] = {}
 
-
     def _get_service_dict(self, service):
         if service not in self._compose["services"]:
             self._compose["services"][service] = {}
