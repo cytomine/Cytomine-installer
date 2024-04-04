@@ -198,7 +198,6 @@ class DockerComposeFile:
         return list(self._content.get("services", {}).keys())
 
 
-
 class EditableDockerCompose:
     """A class for creating and changing a docker compose (intentionally very limited scope).
     Supports edition of:
